@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -7,15 +8,12 @@ public class ArrayGenerator {
 	 * @param args
 	 */
 	
-	private static int [][] input100k;
-	private static int [][] input1000k;
-	
-	private static int[][][] maxMem;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-			//input100k=initArray(100000);
-			input1000k =initArray(1000000);
-			//maxMem = initMax();
+			for(int i=100000;i<=1000000;i=i+50000){
+			initArray(i);
+			}
 			
 			System.out.println("termine de generar inputs");
 			Scanner console = new Scanner(System.in);
@@ -28,41 +26,36 @@ public class ArrayGenerator {
 			System.out.println(Math.round(val));
 			
 			
-			for(int i=0;i<100;i++){
-				for(int k=0;k<10000;k++){
-				System.out.println(input100k[i][k]);
-				}
-			}
+
 			*/
 			
 			
 	
 	}
 	
-	private static int[][][] initMax() {
-		// TODO Auto-generated method stub
-		int[][][] maxmem = new int[7][100][100000];
-		for(int k=0;k<7;k++){
-			for(int j=0;j<100;j++){
-				for(int i=0; i<100000;i++){
-					maxmem[k][j][i]=(int) Math.round(Math.random()*1000);
-				}
-			}
-		}
-		
-		return maxmem;
-			
-	}
 
-	private static int[][] initArray(int length) {
+
+	private static void initArray(int length) {
 		// TODO Auto-generated method stub
-		int [][] aux = new int[10][length];		
-		for(int i=0;i<10;i++){
+		int [][] input = new int[100][length];		
+		for(int i=0;i<100;i++){
 			for(int k=0;k<length;k++){
-				aux[i][k]=(int) Math.round(Math.random()*1000);
+				input[i][k]=(int) Math.round(Math.random()*1000000);
 			}
 		}
-		return aux;
+		//Una vez generados, hacer algo con ellos:
+		for(int i=0;i<100;i++){
+			Arrays.sort(input[i]);
+		}
+		System.out.println("Ordenados arreglos de largo: "+length);
+		/*
+		for(int i=0;i<100;i++){
+			for(int k=0;k<10000;k++){
+			System.out.println(input[i][k]);
+			}
+		}
+		*/		
+		
 		
 	}
 	
