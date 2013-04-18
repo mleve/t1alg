@@ -56,12 +56,14 @@ public class ArrayGenerator {
 		}
 		
 		resultWriter.println("#Resultados para largo = "+length);
-		resultWriter.println("#Arreglo nº; tiempo");
+		resultWriter.println("#Arreglo n; tiempo");
 		long init=0, end = 0;
+		int lol=-1;
 		//Una vez generados, hacer algo con ellos:
 		for(int i=0;i<100;i++){
 			init=System.nanoTime();
-			Arrays.sort(input[i]);
+			//Llamada al algoritmo
+			lol=quickSelect(input[i],(int)Math.floor(input[i].length/2),0,input[i].length-1);
 			end=System.nanoTime();
 			resultWriter.println(""+(i+1)+";"+(end-init));
 		}
@@ -75,6 +77,45 @@ public class ArrayGenerator {
 		*/		
 		
 		
+	}
+	
+	private static int quickSelect(int[] input, int posK, int initIndex, int endIndex){
+		int pivotIndex = (int) Math.floor(Math.random()*(endIndex-initIndex)+initIndex);
+		//int pivotIndex=2;
+		//System.out.println("pivotIndex: "+pivotIndex);
+		int pivotFinalPos = quickSortPartition(input,pivotIndex, initIndex,endIndex);
+		if (posK == pivotFinalPos+1)
+			return input[pivotFinalPos];
+		else if (posK<=pivotFinalPos)
+			return quickSelect(input, posK, initIndex, pivotFinalPos-1);
+		else
+			return quickSelect(input, posK, pivotFinalPos+1, endIndex);
+	}
+
+
+
+	private static int quickSortPartition(int[] input, int pivotIndex, int initIndex,
+			int endIndex) {
+		// TODO Auto-generated method stub
+		int pivotValue = input[pivotIndex];
+		swap(input,pivotIndex,endIndex);
+		int pivotFinalPos=initIndex;
+		for(int i=initIndex;i<endIndex;i++){
+			if(input[i]<=pivotValue){
+				swap(input,pivotFinalPos,i);
+				pivotFinalPos++;
+			}
+		}
+		swap(input,pivotFinalPos,endIndex);
+		return pivotFinalPos;
+	}
+
+
+
+	private static void swap(int[] input, int ind1, int ind2) {
+		// TODO Auto-generated method stub
+		int aux=input[ind2];
+		input[ind2]=input[ind1];
 	}
 	
 	
