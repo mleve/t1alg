@@ -23,9 +23,17 @@ public class ArrayGenerator {
 		resultWriter.println("######");
 		}
 		
+		System.out.println("Ejecucion terminada");
+
+		/*
+		for(int i=10000;i<=100000;i=i+10000){
+		initAndSort(i);
+		resultWriter.println("######");
+		}
 		System.out.println("termine de generar inputs");
 		resultWriter.close();
 
+		*/
 		/*
 		Scanner console = new Scanner(System.in);
 		System.out.print("You're next guess? ");
@@ -61,11 +69,22 @@ public class ArrayGenerator {
 		int lol=-1;
 		//Una vez generados, hacer algo con ellos:
 		for(int i=0;i<100;i++){
+			/*
 			init=System.nanoTime();
 			//Llamada al algoritmo
+			
 			lol=quickSelect(input[i],(int)Math.floor(input[i].length/2),0,input[i].length-1);
 			end=System.nanoTime();
-			resultWriter.println(""+(i+1)+";"+(end-init));
+			resultWriter.println(""+(i+1)+";"+(end-init));			
+			*/
+			//Prueba 2: Manejar 1 arreglo a la vez
+			MedFinder finder = new MedFinder(input[i]);
+			init=System.nanoTime();
+			finder.quickSelect((int)Math.floor(input[i].length/2),0,input[i].length-1);
+			end=System.nanoTime();
+			resultWriter.println(""+(i+1)+";"+(end-init));			
+			finder=null;
+
 		}
 		System.out.println("Ordenados arreglos de largo: "+length);
 		/*
@@ -78,46 +97,4 @@ public class ArrayGenerator {
 		
 		
 	}
-	
-	private static int quickSelect(int[] input, int posK, int initIndex, int endIndex){
-		int pivotIndex = (int) Math.floor(Math.random()*(endIndex-initIndex)+initIndex);
-		//int pivotIndex=2;
-		//System.out.println("pivotIndex: "+pivotIndex);
-		int pivotFinalPos = quickSortPartition(input,pivotIndex, initIndex,endIndex);
-		if (posK == pivotFinalPos+1)
-			return input[pivotFinalPos];
-		else if (posK<=pivotFinalPos)
-			return quickSelect(input, posK, initIndex, pivotFinalPos-1);
-		else
-			return quickSelect(input, posK, pivotFinalPos+1, endIndex);
-	}
-
-
-
-	private static int quickSortPartition(int[] input, int pivotIndex, int initIndex,
-			int endIndex) {
-		// TODO Auto-generated method stub
-		int pivotValue = input[pivotIndex];
-		swap(input,pivotIndex,endIndex);
-		int pivotFinalPos=initIndex;
-		for(int i=initIndex;i<endIndex;i++){
-			if(input[i]<=pivotValue){
-				swap(input,pivotFinalPos,i);
-				pivotFinalPos++;
-			}
-		}
-		swap(input,pivotFinalPos,endIndex);
-		return pivotFinalPos;
-	}
-
-
-
-	private static void swap(int[] input, int ind1, int ind2) {
-		// TODO Auto-generated method stub
-		int aux=input[ind2];
-		input[ind2]=input[ind1];
-	}
-	
-	
-
 }
