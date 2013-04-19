@@ -15,14 +15,15 @@ public class ArrayGenerator {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		resultWriter = new PrintWriter(new FileWriter("resultNanos.csv"));
+		resultWriter = new PrintWriter(new FileWriter("resultQS1 	.csv"));
 		resultWriter.println("#Resultados para algoritmo: ASDFLOLQWERTY");
 		
 		for(int i=100000;i<=1000000;i=i+50000){
 		initAndSort(i);
 		resultWriter.println("######");
+		resultWriter.flush();
 		}
-		
+		resultWriter.close();
 		System.out.println("Ejecucion terminada");
 
 		/*
@@ -80,12 +81,14 @@ public class ArrayGenerator {
 			//Prueba 2: Manejar 1 arreglo a la vez
 			MedFinder finder = new MedFinder(input[i]);
 			init=System.nanoTime();
-			finder.quickSelect((int)Math.floor(input[i].length/2),0,input[i].length-1);
+			//finder.quickSelect((int)Math.floor(input[i].length/2),0,input[i].length-1);
+			finder.medOfMeds(input[i], 3);
 			end=System.nanoTime();
-			resultWriter.println(""+(i+1)+";"+(end-init));			
+			resultWriter.println(""+(i+1)+"; "+(end-init));			
 			finder=null;
 
 		}
+
 		System.out.println("Ordenados arreglos de largo: "+length);
 		/*
 		for(int i=0;i<100;i++){

@@ -3,16 +3,18 @@ public class Tonteras {
 
 	public static void main(String[]args){
 		
-		//int[] asdf={4,3,2,5,1,7,9,2,0,-3,-4,1,-1};
+		int[] asdf={-5,-3,-2,1,2,3,5,7,9,11,13,15,20,23,24,25,26,27,29,32,33,34,35,36};
+		/*
 		int[] asdf = new int[1000000];
 		for(int i =0;i<asdf.length;i++){
 			asdf[i]=(int)(Math.random()*100000);
 		}
-		/*
-		int medValue=quickSelect(asdf,(int)Math.floor(asdf.length/2),0,asdf.length-1);
 		*/
+		
+		
 		MedFinder finder = new MedFinder(asdf);
-		int medValue = finder.quickSelect((int)Math.floor(asdf.length/2),0,asdf.length-1);
+		//int medValue = finder.quickSelect((int)Math.floor(asdf.length/2),0,asdf.length-1);
+		int medValue = finder.medOfMeds(asdf, 2);
 		System.out.println("valor de la mediana: "+medValue);
 		
 	}

@@ -55,16 +55,24 @@ public class MedFinder {
 		input[ind1]=aux;
 	}
 	
-	private int medOfMeds(int []thyInput, int elParam){
+	public int medOfMeds(int []thyInput, int elParam){
+		//Condicion de termino, el arreglo es <= 2*elParam+1
+		if(thyInput.length<=(2*elParam+1))
+			return getMedian(thyInput);
 		//Genero un subArreglo de medianas
-		int newLength = Math.round(thyInput.length/(2*elParam+1));
-		int[] newInput = new int[newLength];
-		for(int i=0;i<newLength;i++){
-			newInput[i]=getMedian(Arrays.copyOfRange(thyInput, i, (2*elParam+1)));
+		int subArraysLengths = 2*elParam+1;
+		double asdf = (double)thyInput.length/(2*elParam+1);
+		int medArrayLength = (int)Math.ceil(asdf);
+		int[] newInput = new int[medArrayLength];
+		int k=0;
+		for(int i=0;i<thyInput.length;i=i+subArraysLengths){
+			if((i+subArraysLengths)>thyInput.length)
+				newInput[k]=getMedian(Arrays.copyOfRange(thyInput, i, thyInput.length));
+			else
+				newInput[k]=getMedian(Arrays.copyOfRange(thyInput, i, i+subArraysLengths));
+			k++;
 		}
-		//
-		
-		return -1;
+		return medOfMeds(newInput,elParam);
 	}
 
 
@@ -72,8 +80,11 @@ public class MedFinder {
 	private int getMedian(int[] subArray) {
 		// TODO Auto-generated method stub
 		Arrays.sort(subArray);
-		int medIndex =Math.round(subArray.length/2);
-		return subArray[medIndex];
+		int medIndex =subArray.length/2;
+		if(subArray.length%2==0)
+			return ((subArray[medIndex-1]+subArray[medIndex])/2);
+		else
+			return subArray[medIndex];
 	}
 	
 }
