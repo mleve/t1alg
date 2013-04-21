@@ -143,12 +143,27 @@ public class MedFinder {
 
 	private int getMedian(int[] subArray) {
 		// TODO Auto-generated method stub
-		Arrays.sort(subArray);
+		//Arrays.sort(subArray);
+		insertionSort(subArray);
 		int medIndex =subArray.length/2;
 		//if(subArray.length%2==0)
 		//	return ((subArray[medIndex-1]+subArray[medIndex])/2);
 		//else
 			return subArray[medIndex];
 	}
+	
+	 private void insertionSort(int[] vector){
+		  for (int i=1; i < vector.length; i++){
+		    int temp = vector[i];
+		    int j;
+		 
+		    for (j=i-1;j >= 0 && vector[j] > temp;j--){
+		      vector[j + 1] = vector[j];
+		 
+		    }
+		 
+		    vector[j+1] = temp;
+		  }
+		}
 	
 }

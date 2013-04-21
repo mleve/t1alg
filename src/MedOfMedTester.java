@@ -14,7 +14,7 @@ public class MedOfMedTester {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		resultWriter = new PrintWriter(new FileWriter("/u/a/2011/mleveron/kMedOfMedTimes.csv"));
+		resultWriter = new PrintWriter(new FileWriter("kMedOfMedTimes.csv"));
 		resultWriter.println("Prueba de K mediana de medianas");
 		int[][] elInput = new int[100][1000000];
 		for(int i=0;i<elInput.length;i++){
