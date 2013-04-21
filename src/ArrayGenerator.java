@@ -15,7 +15,7 @@ public class ArrayGenerator {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		resultWriter = new PrintWriter(new FileWriter("resultQS1 	.csv"));
+		resultWriter = new PrintWriter(new FileWriter("/u/a/2011/mleveron/resultQS1.csv"));
 		resultWriter.println("#Resultados para algoritmo: ASDFLOLQWERTY");
 		
 		for(int i=100000;i<=1000000;i=i+50000){
@@ -82,7 +82,7 @@ public class ArrayGenerator {
 			MedFinder finder = new MedFinder(input[i]);
 			init=System.nanoTime();
 			//finder.quickSelect((int)Math.floor(input[i].length/2),0,input[i].length-1);
-			finder.medOfMeds(input[i], 3);
+			finder.medOfMeds(2,0,input[i].length-1);
 			end=System.nanoTime();
 			resultWriter.println(""+(i+1)+"; "+(end-init));			
 			finder=null;

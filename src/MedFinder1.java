@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 
-public class MedFinder {
+public class MedFinder1 {
 
 	/*Clase que recibe un arreglo en su constructor y encuentra su mediana
 	 * Por alguno de los metodos
@@ -10,7 +10,7 @@ public class MedFinder {
 	private int iters=0;
 
 	
-	public MedFinder(int[] input){
+	public MedFinder1(int[] input){
 		this.input=input;
 	}
 	
@@ -68,24 +68,28 @@ public class MedFinder {
 		//		return median;
 		//}
 		if(input[(input.length)/2]==median)
-			return median;
+			return iters+1;
 		//hubo recursion hasta obtener un solo candidato: 
 		if(startPos==endPos){
 			int aux=(input.length-1)/2;
-			return (input[aux]+input[aux+1])/2;
+			return iters+1;
 		}
 			
-		if((input.length/2)<indices[0])
+		if((input.length/2)<indices[0]){
+			iters++;
 			return medOfMeds(elParam,startPos,indices[0]-1);
-		else
+		}
+		else{
+			iters++;
 			return medOfMeds(elParam,indices[1],endPos);
-
+		}
 	}
 
 	private int[] medOfMedsPartition(int median) {
 		int minIndex=0, equalIndex=0;
 		int[] aux=input;
 		for(int i=0;i<input.length;i++){
+			iters++;
 			if(aux[i]<median){
 				if(minIndex==i)
 					input[i]=aux[i];
@@ -120,7 +124,7 @@ public class MedFinder {
 
 	public int medPivotValue(int[] thyInput,int elParam, int startPos,int endPos){
 		//Retorna el valor de la mediana de medianas, que sera usado como pivote
-		
+		iters++;
 		//Condicion de termino, el arreglo es <= 2*elParam+1
 		if((endPos-startPos+1)<=(2*elParam+1))
 			return getMedian(Arrays.copyOfRange(thyInput, startPos, endPos+1));
