@@ -18,11 +18,10 @@ public class MedFinder1 {
 	
 	public int quickSelect(int initIndex, int endIndex){
 		int pivotIndex = (int) Math.floor(Math.random()*(endIndex-initIndex)+initIndex);
-		//int pivotIndex=2;
-		//System.out.println("pivotIndex: "+pivotIndex);
 		int pivotFinalPos = quickSortPartition(pivotIndex, initIndex,endIndex);
+		iters++;
 		if (input.length/2 == pivotFinalPos)
-			return input[pivotFinalPos];
+			return iters;
 		else if (input.length/2 <= pivotFinalPos)
 			return quickSelect(initIndex, pivotFinalPos-1);
 		else
@@ -38,6 +37,7 @@ public class MedFinder1 {
 		swap(pivotIndex,endIndex);
 		int pivotFinalPos=initIndex;
 		for(int i=initIndex;i<endIndex;i++){
+			iters++;
 			if(input[i]<=pivotValue){
 				swap(pivotFinalPos,i);
 				pivotFinalPos++;
@@ -67,29 +67,27 @@ public class MedFinder1 {
 		//	if((input[aux]+input[aux+1])/2==median)
 		//		return median;
 		//}
+		iters=iters+3;
 		if(input[(input.length)/2]==median)
-			return iters+1;
+			return iters;
 		//hubo recursion hasta obtener un solo candidato: 
 		if(startPos==endPos){
 			int aux=(input.length-1)/2;
-			return iters+1;
+			return iters;
 		}
 			
-		if((input.length/2)<indices[0]){
-			iters++;
+		if((input.length/2)<indices[0])
 			return medOfMeds(elParam,startPos,indices[0]-1);
-		}
-		else{
-			iters++;
+		else
 			return medOfMeds(elParam,indices[1],endPos);
-		}
+
 	}
 
 	private int[] medOfMedsPartition(int median) {
 		int minIndex=0, equalIndex=0;
 		int[] aux=input;
 		for(int i=0;i<input.length;i++){
-			iters++;
+			iters=iters+2;
 			if(aux[i]<median){
 				if(minIndex==i)
 					input[i]=aux[i];
@@ -135,6 +133,7 @@ public class MedFinder1 {
 		int[] newInput = new int[medArrayLength];
 		int k=0;
 		for(int i=startPos;i<endPos+1;i=i+subArraysLengths){
+			iters++;
 			if((i+subArraysLengths)>(endPos+1))
 				newInput[k]=getMedian(Arrays.copyOfRange(thyInput, i, endPos+1));
 			else
@@ -147,12 +146,28 @@ public class MedFinder1 {
 
 	private int getMedian(int[] subArray) {
 		// TODO Auto-generated method stub
-		Arrays.sort(subArray);
+		//Arrays.sort(subArray);
+		insertionSort(subArray);
 		int medIndex =subArray.length/2;
 		//if(subArray.length%2==0)
 		//	return ((subArray[medIndex-1]+subArray[medIndex])/2);
 		//else
 			return subArray[medIndex];
 	}
+	
+	 private void insertionSort(int[] vector){
+		  for (int i=1; i < vector.length; i++){
+		    int temp = vector[i];
+		    int j;
+		 
+		    for (j=i-1;j >= 0 && vector[j] > temp;j--){
+		      iters++;
+		      vector[j + 1] = vector[j];
+		 
+		    }
+		 
+		    vector[j+1] = temp;
+		  }
+		}
 	
 }

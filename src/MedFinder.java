@@ -8,7 +8,9 @@ public class MedFinder {
 	 * */
 	private int[] input;
 	private int iters=0;
-
+	private int alfa=-1;
+	private int recCalls=0;
+	private boolean cambio=false;
 	
 	public MedFinder(int[] input){
 		this.input=input;
@@ -165,5 +167,47 @@ public class MedFinder {
 		    vector[j+1] = temp;
 		  }
 		}
-	
+
+	 public int musser(int alfa, int t,int initIndex,int endIndex){
+		 //Cambio parte en false
+		 //Primero evaluo si se cumple la condicion para cambiar de algoritmo:
+		 if(recCalls>=t){
+			 if(((endIndex-initIndex)<(input.length/alfa))==false)
+				 cambio=true;
+		 }
+		 if(cambio){
+			 //Se cumple la condicion, cambio a mediana de medianas
+			//Obtener la mediana de medianas
+			int elParam =1;
+			int median=medPivotValue(Arrays.copyOfRange(input, initIndex, endIndex+1),elParam,0,endIndex-initIndex);
+			//Particionar usando esta mediana
+			int[] indices=medOfMedsPartition(median);
+			//Si la mediana quedo en la posicion n/2 , retornamos (es efectivamente la mediana del arreglo input)
+			if(input[(input.length)/2]==median)
+				return median;
+			//hubo recursion hasta obtener un solo candidato: 
+			if(initIndex==endIndex){
+				int aux=(input.length-1)/2;
+				return (input[aux]+input[aux+1])/2;
+			}
+			recCalls++;	
+			if((input.length/2)<indices[0])
+				return musser(alfa,t,initIndex,indices[0]-1);
+			else
+				return musser(alfa,t,indices[1],endIndex);				 
+		 }
+		 else{
+			 //Aplico quickSelect
+				int pivotIndex = (int) Math.floor(Math.random()*(endIndex-initIndex)+initIndex);
+				int pivotFinalPos = quickSortPartition(pivotIndex, initIndex,endIndex);
+				recCalls++;
+				if (input.length/2 == pivotFinalPos)
+					return input[pivotFinalPos];
+				else if (input.length/2 <= pivotFinalPos)
+					return musser(alfa,t,initIndex, pivotFinalPos-1);
+				else
+					return musser(alfa,t,pivotFinalPos+1, endIndex);			 
+		 }
+		 
+	 }
 }

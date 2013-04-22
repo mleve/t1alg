@@ -15,47 +15,23 @@ public class ArrayGenerator {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		resultWriter = new PrintWriter(new FileWriter("/u/a/2011/mleveron/resultQS1.csv"));
-		resultWriter.println("#Resultados para algoritmo: ASDFLOLQWERTY");
+		resultWriter = new PrintWriter(new FileWriter("CompsMedOfMed.csv"));
+		resultWriter.println("#Resultados de comparaciones para medOfMed");
 		
 		for(int i=100000;i<=1000000;i=i+50000){
-		initAndSort(i);
+		runTest(i);
 		resultWriter.println("######");
 		resultWriter.flush();
 		}
 		resultWriter.close();
 		System.out.println("Ejecucion terminada");
-
-		/*
-		for(int i=10000;i<=100000;i=i+10000){
-		initAndSort(i);
-		resultWriter.println("######");
-		}
-		System.out.println("termine de generar inputs");
-		resultWriter.close();
-
-		*/
-		/*
-		Scanner console = new Scanner(System.in);
-		System.out.print("You're next guess? ");
-		String guess = console.next();
-		/*
-		double val = Math.random()*1000;
-		int val1 =(int)val;
-		System.out.println(val);
-		System.out.println(Math.round(val));
-		
-		
-
-		*/
-			
 			
 	
 	}
 	
 
 
-	private static void initAndSort(int length) {
+	private static void runTest(int length) {
 		// TODO Auto-generated method stub
 		int [][] input = new int[100][length];		
 		for(int i=0;i<100;i++){
@@ -70,34 +46,18 @@ public class ArrayGenerator {
 		int lol=-1;
 		//Una vez generados, hacer algo con ellos:
 		for(int i=0;i<100;i++){
-			/*
-			init=System.nanoTime();
-			//Llamada al algoritmo
-			
-			lol=quickSelect(input[i],(int)Math.floor(input[i].length/2),0,input[i].length-1);
-			end=System.nanoTime();
-			resultWriter.println(""+(i+1)+";"+(end-init));			
-			*/
 			//Prueba 2: Manejar 1 arreglo a la vez
-			MedFinder finder = new MedFinder(input[i]);
-			init=System.nanoTime();
-			//finder.quickSelect((int)Math.floor(input[i].length/2),0,input[i].length-1);
-			finder.medOfMeds(2,0,input[i].length-1);
-			end=System.nanoTime();
-			resultWriter.println(""+(i+1)+"; "+(end-init));			
+			MedFinder1 finder = new MedFinder1(input[i]);
+			//init=System.nanoTime();
+			resultWriter.println(""+(i+1)+"; "+finder.medOfMeds(1,0,input[i].length-1));
+			//finder.medOfMeds(1,0,input[i].length-1);
+			//end=System.nanoTime();
+			//resultWriter.println(""+(i+1)+"; "+(end-init));			
 			finder=null;
+			
 
 		}
 
-		System.out.println("Ordenados arreglos de largo: "+length);
-		/*
-		for(int i=0;i<100;i++){
-			for(int k=0;k<10000;k++){
-			System.out.println(input[i][k]);
-			}
-		}
-		*/		
-		
-		
+		System.out.println("Procesados arreglos de largo: "+length);		
 	}
 }
